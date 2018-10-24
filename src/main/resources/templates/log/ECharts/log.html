@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{index}">
+<head>
+    <title>Layout page</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <form id="logForm">
+        <div class="row">
+            <div class="input-group col-md-2">
+                <input class="form-control" id="month-id" name="month" type="text" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM'})">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary" id="Search">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 100%;"></div>
+    <script type="text/javascript">
+        $(function () {
+
+            $("#month-id").val($.format.date(new Date(), "yyyy-MM"))
+
+            var height = $(window).height() - 135;
+
+            $("#main").css("height", height);
+
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('main'));
+
+            function Search() {
+                if(!$("#month-id").val()){
+                    alert("时间不能为空");
+                    return;
+                }
+                var parmas = $("form").serializeArray();
+                $.post('/logECharts/findEChartsData', parmas, function (data) {
+                    myChart.setOption(option = {
+                        title: {
+                            text: '消费 温度计'
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        xAxis: {
+                            data: data.map(function (item) {
+                                return item[0];
+                            })
+                        },
+                        yAxis: {
+                            splitLine: {
+                                show: false
+                            }
+                        },
+                        toolbox: {
+                            left: 'center',
+                            feature: {
+                                dataZoom: {
+                                    yAxisIndex: 'none'
+                                },
+                                restore: {},
+                                saveAsImage: {}
+                            }
+                        },
+                        dataZoom: [{
+                            startValue: '2014-06-01'
+                        }, {
+                            type: 'inside'
+                        }],
+                        visualMap: {
+                            top: 10,
+                            right: 10,
+                            pieces: [{
+                                gt: 0,
+                                lte: 2000,
+                                color: '#ffde33'
+                            }, {
+                                gt: 2000,
+                                lte: 2500,
+                                color: '#ff9933'
+                            }, {
+                                gt: 2500,
+                                lte: 3000,
+                                color: '#2e8bcc'
+                            }],
+                            outOfRange: {
+                                color: '#7e0023'
+                            }
+                        },
+                        series: {
+                            name: '消费 温度计',
+                            type: 'line',
+                            data: data.map(function (item) {
+                                return item[1];
+                            }),
+                            markLine: {
+                                silent: true,
+                                data: [{
+                                    yAxis: 2000
+                                }, {
+                                    yAxis: 2500
+                                }, {
+                                    yAxis: 3000
+                                }]
+                            }
+                        }
+                    });
+                });
+            }
+
+            Search();
+
+            $("#Search").click(function () {
+                Search();
+            })
+        })
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index}">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!--移除 input type="number" 时浏览器自带的上下箭头-->
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<!--/* Content of this page will be decorated by the elements of layout.html (task/layout) */-->
+<div layout:fragment="content">
+    <div class="table-responsive" style="overflow-y: scroll; height: 92%;">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">money</th>
+                <th scope="col">date</th>
+                <th scope="col">remark</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!--这里的内容将由 【表格查询中->$("tbody").html(html);】 来替换 -->
+
+            </tbody>
+        </table>
+    </div>
+    <!--分页-->
+    <div th:replace="common/pagination :: pagination">pagination content</div>
+    <script>
+        $(function () {
+            /**
+             * 分页
+             */
+            pagination({
+                url :  "/log/findAll"
+            })
+        })
+    </script>
+</div>
+</body>
+</html>

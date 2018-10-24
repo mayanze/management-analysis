@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index}">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--移除 input type="number" 时浏览器自带的上下箭头-->
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0;
+        }
+
+    </style>
+
+</head>
+<body>
+<!--/* Content of this page will be decorated by the elements of layout.html (task/layout) */-->
+<div layout:fragment="content">
+
+    <!--table-->
+    <div class="table-responsive" style="overflow-y: scroll; height: 92%;">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">money</th>
+                <th scope="col">date</th>
+                <th scope="col">remark</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!--这里的内容将由 【表格查询中->$("tbody").html(html);】 来替换 -->
+
+            </tbody>
+        </table>
+    </div>
+
+    <!--分页-->
+    <div th:replace="fragments/pagination :: pagination"></div>
+
+    <script>
+        $(function() {
+            $.contextMenu({
+                selector: 'tbody',
+                callback: function(key, options) {
+                    var url = "";
+                    switch(key){
+                        case "add":{
+                            url = "/edit";
+                            break;
+                        }
+                    }
+
+                    location.href = url;
+                },
+                items: {
+                    "add"   : {name: "Add", icon: "add"},
+                    "edit"  : {name: "Edit", icon: "edit"},
+                    "delete": {name: "Delete", icon: "delete"},
+                    "sep1": "---------",
+                    "quit": {name: "Quit", icon: function(){
+                            return 'context-menu-icon context-menu-icon-quit';
+                        }}
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+        $(function () {
+            var page = 0;//第几页
+            var totalPages = 0;//共多少页
+            var param = new Object();//查询表格所需参数
+            /**
+             *每页条数改变后触发查询
+             */
+            $("#size").change(function () {
+                var size = $("#size option:selected").val();
+                param["size"] = size;
+                findAll(param, true);
+            })
+            /**
+             * 分页点击函数
+             */
+            $(".pagination li").click(function () {
+                var pageEl = $(this).attr("id");
+                switch (pageEl) {
+                    case "First":
+                        page = 0;
+                        break;
+                    case "Previous":
+                        page = page > 0 ? page - 1 : 0;
+                        break;
+                    case "Next":
+                        page = page < totalPages - 1 ? page + 1 : totalPages - 1;
+                        break;
+                    default :
+                        page = totalPages - 1;
+                        break;
+                }
+                param["page"] = page;
+                findAll(param);
+            })
+
+            /**
+             *输入页数框，鼠标离开事件
+             */
+            $("#page").on("keyup", function () {
+                page = $(this).val();
+                if (page > totalPages) {
+                    $(this).val(totalPages)
+                    page = totalPages;
+                }
+                param["page"] = page - 1;
+                findAll(param);
+            })
+
+            /**
+             * 表格查询
+             */
+            function findAll(param, sizeIsChanged) {
+                $.post("/log/findAll", param, function (result) {
+                    var html = "";
+                    $(result.content).each(function (index) {
+                        var offset = result.pageable.offset;
+                        html +=
+                            '<tr>\n' +
+                            '    <th scope="row">' + (offset + index + 1) + '</th>\n' +
+                            '    <td>' + this.money + '</td>\n' +
+                            '    <td>' + $.format.date(this.date, "yyyy-MM-dd") + '</td>\n' +
+                            '    <td>' + this.remark + '</td>\n' +
+                            '</tr>'
+                    });
+                    $("tbody").html(html);
+
+                    $("#totalElements").text("共" + result.totalElements + "条");
+                    totalPages = result.totalPages;
+
+                })
+            }
+
+            /**
+             * 触发表格查询
+             */
+            var size = $("#size option:selected").val();
+            param["size"] = size;
+            findAll(param, true);
+        })
+    </script>
+</div>
+</body>
+</html>

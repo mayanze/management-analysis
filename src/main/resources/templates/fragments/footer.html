@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<!--/*  Multiple fragments may be defined in one file */-->
+<div th:fragment="footer" th:align="center">
+    &copy; <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy')}">2017</span>
+    <span>My Awesome App</span>
+</div>
+<div th:fragment="footer-admin" th:align="center">
+    &copy; <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy')}">2017</span>
+    <span>My Awesome App </span><span th:text="${@environment.getProperty('app.version')}"></span>
+</div>
+</body>
+</html>
+
