@@ -22,8 +22,8 @@
 <div layout:fragment="content">
 
     <!--table-->
-    <div class="table-responsive" style="overflow-y: scroll; height: 92%;">
-        <table class="table">
+    <div class="table-responsive"  style="overflow-y: scroll; height: 92%;">
+        <table class="table table-hover">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
@@ -46,7 +46,7 @@
     <script>
         $(function() {
             $.contextMenu({
-                selector: 'tbody',
+                selector: '.container',
                 callback: function(key, options) {
                     var url = "";
                     switch(key){
