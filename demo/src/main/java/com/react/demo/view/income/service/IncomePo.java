@@ -23,5 +23,5 @@ public class IncomePo {
   private Date createTime;
   private Date modifyTime;
   private long version;
-  private String remarks;
+  private String remark;
   }

@@ -1,5 +1,6 @@
 package com.react.demo.view.dictionary.service;
 
+import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,7 @@ import java.util.List;
  */
 @Repository
 public interface DictionaryRepository extends JpaRepository<DictionaryPo,Long>,JpaSpecificationExecutor<DictionaryPo> {
-
+    @Query(nativeQuery = true,value = "select *,(select name from dictionary_t t1 where t1.id=t.pId) parentName from dictionary_t t")
+    @Override
+    <S extends DictionaryPo> List<S> findAll(Example<S> example);
 }

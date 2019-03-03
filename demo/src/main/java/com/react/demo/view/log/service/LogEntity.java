@@ -20,7 +20,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "log_t")
-public class LogEntity implements BaseEntity {
+public class LogEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

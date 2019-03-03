@@ -46,7 +46,7 @@ public class DictionaryApi {
     }
 
     @RequestMapping("/findAll")
-    public Map findAll(DictionaryPo logEntity, String sortField, String sortOrder, @PageableDefault(sort = {"date"} , direction = Sort.Direction.DESC) Pageable pageable){
+    public Map findAll(DictionaryPo logEntity, String sortField, String sortOrder, @PageableDefault(sort = {"createTime"} , direction = Sort.Direction.DESC) Pageable pageable){
         Page<DictionaryPo> page = null;
         if(!StringUtils.isEmpty(sortField)){
             int pageSize = pageable.getPageSize();

@@ -36,8 +36,8 @@ public class DictionaryServiceImpl implements DictionaryService {
         Page<DictionaryPo> bookPage = this.repository.findAll((Specification<DictionaryPo>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
 
-            if (!StringUtils.isEmpty(logEntity.getRemarks())) {
-                list.add(criteriaBuilder.like(root.get("remark").as(String.class), "%" + logEntity.getRemarks() + "%"));
+            if (!StringUtils.isEmpty(logEntity.getRemark())) {
+                list.add(criteriaBuilder.like(root.get("remark").as(String.class), "%" + logEntity.getRemark() + "%"));
             }
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));

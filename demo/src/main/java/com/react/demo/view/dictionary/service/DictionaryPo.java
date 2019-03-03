@@ -1,20 +1,17 @@
 package com.react.demo.view.dictionary.service;
 
+import com.react.demo.view.base.entity.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Data
 @Entity
 @Table(name = "dictionary_t")
-public class DictionaryPo {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+public class DictionaryPo extends BaseEntity {
+  @Column(name = "pid")
   private long pId;
-  private String type;
-  private String creator;
-  private Date createTime;
-  private Date remarks;
+  private String name;
 }

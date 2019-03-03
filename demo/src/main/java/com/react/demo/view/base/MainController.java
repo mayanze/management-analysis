@@ -18,7 +18,7 @@ public class MainController {
      * 统一处理页面请求
      * @return
      */
-    @RequestMapping("/page/*/*")
+    @RequestMapping(value = {"/page/*","/page/*/*","/page/*/*/*"})
     public String mvc(HttpServletRequest request){
         String requestURI = request.getRequestURI();
         requestURI = requestURI.substring(1,requestURI.length());
