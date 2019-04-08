@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -66,5 +67,15 @@ public class DictionaryApi {
             page = service.findAll(logEntity,pageable);
         }
         return ResultMapUtil.getResultMap(page);
+    }
+
+    /**
+     * 根据父编号查询
+     * @param parentCode
+     * @return
+     */
+    @RequestMapping("/findByParentCode")
+    public List<DictionaryPo> findByParentCode(String parentCode){
+        return service.findByParentCode(parentCode);
     }
 }

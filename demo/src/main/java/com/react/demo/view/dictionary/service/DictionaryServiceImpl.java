@@ -1,6 +1,5 @@
 package com.react.demo.view.dictionary.service;
 
-import com.react.demo.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,13 +7,11 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @Auther: mayanze
@@ -36,8 +33,11 @@ public class DictionaryServiceImpl implements DictionaryService {
         Page<DictionaryPo> bookPage = this.repository.findAll((Specification<DictionaryPo>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
 
-            if (!StringUtils.isEmpty(logEntity.getRemark())) {
-                list.add(criteriaBuilder.like(root.get("remark").as(String.class), "%" + logEntity.getRemark() + "%"));
+            if (!StringUtils.isEmpty(logEntity.getName())) {
+                list.add(criteriaBuilder.like(root.get("name").as(String.class), "%" + logEntity.getName() + "%"));
+            }
+            if (!StringUtils.isEmpty(logEntity.getPId())) {
+                list.add(criteriaBuilder.equal(root.get("pId").as(Integer.class), logEntity.getPId()));
             }
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));
@@ -60,5 +60,13 @@ public class DictionaryServiceImpl implements DictionaryService {
             logEntities.add(logEntity);
         }
         repository.deleteInBatch(logEntities);
+    }
+
+    @Override
+    public List<DictionaryPo> findByParentCode(String parentCode) {
+        DictionaryPo byParentCode = repository.findTopByCode(parentCode);
+        Long pId = byParentCode.getId();
+        List<DictionaryPo> bypId = repository.findBypId(pId);
+        return bypId;
     }
 }

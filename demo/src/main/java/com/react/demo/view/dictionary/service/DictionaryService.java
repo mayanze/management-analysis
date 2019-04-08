@@ -18,4 +18,6 @@ public interface DictionaryService {
     Optional<DictionaryPo> findById(Long id);
 
     void deleteById(Long... id);
+
+    List<DictionaryPo> findByParentCode(String parentCode);
 }

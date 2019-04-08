@@ -35,26 +35,6 @@ public class MainController {
         return "login";
     }
 
-    @GetMapping("/pages/hello")
-    public String test(){
-        return "pages/hello";
-    }
-
-    @GetMapping("/pages/log")
-    public String log(){
-        return "log/list";
-    }
-
-    @GetMapping("/log/edit")
-    public String edit(){
-        return "page/log/edit";
-    }
-
-    @RequestMapping("/list")
-    public String list(){
-        return "/log/web/list";
-    }
-
     @RequestMapping("/Layout")
     public String Layout(){
         return "/example/Layout";

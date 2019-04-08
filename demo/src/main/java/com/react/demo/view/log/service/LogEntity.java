@@ -1,6 +1,5 @@
 package com.react.demo.view.log.service;
 
-import com.react.demo.view.base.entity.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;

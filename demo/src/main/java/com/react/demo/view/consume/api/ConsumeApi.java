@@ -1,9 +1,9 @@
-package com.react.demo.view.income.api;
+package com.react.demo.view.consume.api;
 
 import com.react.demo.view.base.BaseApi;
 import com.react.demo.view.base.BaseService;
-import com.react.demo.view.income.service.IncomePo;
-import com.react.demo.view.income.service.IncomeService;
+import com.react.demo.view.consume.service.ConsumePo;
+import com.react.demo.view.consume.service.ConsumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description:
  */
 @RestController
-@RequestMapping("/income")
-public class IncomeApi extends BaseApi<IncomePo> {
+@RequestMapping("/consume")
+public class ConsumeApi extends BaseApi<ConsumePo> {
 
     @Autowired
-    private IncomeService service;
+    private ConsumeService service;
 
     @Override
-    public BaseService<IncomePo> service() {
+    public BaseService<ConsumePo> service() {
         return service;
     }
 }

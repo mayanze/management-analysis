@@ -1,4 +1,4 @@
-package com.react.demo.view.income.service;
+package com.react.demo.view.consume.service;
 
 
 import com.react.demo.view.base.BaseEntity;
@@ -13,8 +13,8 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name = "income_t")
-public class IncomePo extends BaseEntity {
+@Table(name = "consume_t")
+public class ConsumePo extends BaseEntity {
     private String type;
     private double money;
     private long version;

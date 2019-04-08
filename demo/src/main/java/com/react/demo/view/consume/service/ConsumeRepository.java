@@ -1,4 +1,4 @@
-package com.react.demo.view.income.service;
+package com.react.demo.view.consume.service;
 
 import com.react.demo.view.base.BaseRepository;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * @Description:
  */
 @Repository
-public interface IncomeRepository extends BaseRepository<IncomePo> {
+public interface ConsumeRepository extends BaseRepository<ConsumePo> {
 
 
 }

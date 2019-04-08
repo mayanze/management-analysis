@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,4 +18,8 @@ public interface DictionaryRepository extends JpaRepository<DictionaryPo,Long>,J
     @Query(nativeQuery = true,value = "select *,(select name from dictionary_t t1 where t1.id=t.pId) parentName from dictionary_t t")
     @Override
     <S extends DictionaryPo> List<S> findAll(Example<S> example);
+
+    DictionaryPo findTopByCode(String code);
+
+    List<DictionaryPo> findBypId(long pId);
 }

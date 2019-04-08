@@ -14,7 +14,7 @@ spring:
     hibernate:
       ddl-auto: none
       dialect: org.hibernate.dialect.MySQL5Dialect
-    show-sql: true
+#    show-sql: true
   mvc:
     pathmatch:
       use-suffix-pattern: true

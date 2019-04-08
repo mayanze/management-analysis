@@ -1,6 +1,6 @@
-package com.react.demo.view.income.api;
+package com.react.demo.view.consume.api;
 
-import com.react.demo.view.income.service.IncomeService;
+import com.react.demo.view.consume.service.ConsumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("incomeECharts")
-public class IncomeECharts {
+public class ConsumeECharts {
 
     @Autowired
-    private IncomeService service;
+    private ConsumeService service;
 
 //    @RequestMapping("/findEChartsData")
 //    public List<ConsumePo> findEChartsData(){

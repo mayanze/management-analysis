@@ -1,4 +1,4 @@
-package com.react.demo.view.income.service;
+package com.react.demo.view.consume.service;
 
 import com.react.demo.view.base.BaseRepository;
 import com.react.demo.view.base.BaseServiceImpl;
@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
  * @Description:
  */
 @Service
-public class IncomeServiceImpl extends BaseServiceImpl<IncomePo> implements IncomeService{
+public class ConsumeServiceImpl extends BaseServiceImpl<ConsumePo> implements ConsumeService {
     @Autowired
-    private IncomeRepository repository;
+    private ConsumeRepository repository;
 
     @Override
-    public BaseRepository<IncomePo> repository() {
+    public BaseRepository<ConsumePo> repository() {
         return repository;
     }
 }

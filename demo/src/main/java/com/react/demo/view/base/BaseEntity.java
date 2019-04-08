@@ -1,11 +1,9 @@
-package com.react.demo.view.base.entity;
+package com.react.demo.view.base;
 
 import lombok.Data;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -15,11 +13,12 @@ import java.util.Date;
  */
 @Data
 @MappedSuperclass
-public class BaseEntity {
+public class BaseEntity implements Serializable {
      @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
      public long id;
      public String creator;
+     @Temporal(TemporalType.DATE)
      public Date createTime;
      public String remark;
 }
